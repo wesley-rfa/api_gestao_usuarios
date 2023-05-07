@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('users', UsersController::class);
+Route::middleware(['forceAcceptJson'])->group(function () {
+    Route::apiResource('users', UsersController::class);
+});
