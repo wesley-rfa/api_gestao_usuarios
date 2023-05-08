@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        dd("index");
+        return User::all();
     }
 
     public function store(Request $request)
