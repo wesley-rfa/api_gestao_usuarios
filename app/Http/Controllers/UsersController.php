@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
+use App\Http\Requests\StoreUserRequest;
 class UsersController extends Controller
 {
     public function index()
@@ -11,9 +12,11 @@ class UsersController extends Controller
         return User::all();
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        dd("store");
+        $newUser = $request->validated();
+        $newUser['password'] = bcrypt($newUser['password']);
+        return User::create($newUser);
     }
 
     public function update(Request $request, $id)

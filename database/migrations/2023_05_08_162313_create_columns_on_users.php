@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('cep');
-            $table->string('logradouro');
+            $table->string('logradouro')->after('remember_token');
+            $table->string('cep', 8)->after('remember_token');
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +29,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['cep', 'logradouro']);
+            $table->dropSoftDeletes();
         });
     }
 };
