@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 class UsersController extends Controller
 {
     public function index()
@@ -19,9 +20,11 @@ class UsersController extends Controller
         return User::create($newUser);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        dd("update");
+        $user = User::findOrfail($id);
+        $user->update($request->validated());
+        return $user;
     }
 
     public function show(Request $request, $id)
@@ -31,6 +34,8 @@ class UsersController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        return User::destroy($id);
+        $user = User::findOrfail($id);
+        $user->destroy($id);
+        return $user;
     }
 }
