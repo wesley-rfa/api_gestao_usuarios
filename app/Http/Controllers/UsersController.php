@@ -28,6 +28,6 @@ class UsersController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        dd("destroy");
+        return User::destroy($id);
     }
 }
