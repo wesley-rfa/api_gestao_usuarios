@@ -29,7 +29,7 @@ class UsersController extends Controller
 
     public function show(Request $request, $id)
     {
-        dd("show");
+        return User::find($id);
     }
 
     public function destroy(Request $request, $id)
