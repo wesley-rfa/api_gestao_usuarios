@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Restaurante;
 use Illuminate\Http\Request;
+use App\Repositories\RestauranteRepository;
 
 class RestauranteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $restauranteRepository;
+    
+    public function __construct()
     {
-        //
+        $this->restauranteRepository = new RestauranteRepository();
+        parent::__construct($this->restauranteRepository, Restaurante::class);
     }
 
     /**
@@ -29,17 +28,6 @@ class RestauranteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Restaurante  $restaurante
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Restaurante $restaurante)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,17 +35,6 @@ class RestauranteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Restaurante $restaurante)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Restaurante  $restaurante
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Restaurante $restaurante)
     {
         //
     }

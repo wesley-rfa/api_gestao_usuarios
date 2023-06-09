@@ -6,11 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Repositories\UsersRepository;
 class UsersController extends Controller
 {
-    public function index()
+    private $usersRepository;
+    
+    public function __construct()
     {
-        return User::all();
+        $this->usersRepository = new UsersRepository();
+        parent::__construct($this->usersRepository, User::class);
     }
 
     public function store(StoreUserRequest $request)
@@ -24,18 +28,6 @@ class UsersController extends Controller
     {
         $user = User::findOrfail($id);
         $user->update($request->validated());
-        return $user;
-    }
-
-    public function show(Request $request, $id)
-    {
-        return User::find($id);
-    }
-
-    public function destroy(Request $request, $id)
-    {
-        $user = User::findOrfail($id);
-        $user->destroy($id);
         return $user;
     }
 }

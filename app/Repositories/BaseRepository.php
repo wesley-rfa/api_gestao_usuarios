@@ -26,6 +26,7 @@ class BaseRepository
      */
     public function getAll($filter = null, $pagination = null, $order = null, $fields = null)
     {
+        dd($this->baseClass::all());
         if ($pagination) {
             return $this->baseClass::paginate($pagination);
         } else {

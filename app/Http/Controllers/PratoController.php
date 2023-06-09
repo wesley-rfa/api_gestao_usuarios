@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Prato;
 use Illuminate\Http\Request;
+use App\Repositories\PratoRepository;
 
 class PratoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $pratoRepository;
+    
+    public function __construct()
     {
-        //
+        $this->pratoRepository = new PratoRepository();
+        parent::__construct($this->pratoRepository, Prato::class);
     }
 
     /**
@@ -29,17 +28,6 @@ class PratoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Prato  $prato
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Prato $prato)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,17 +35,6 @@ class PratoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Prato $prato)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Prato  $prato
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Prato $prato)
     {
         //
     }
