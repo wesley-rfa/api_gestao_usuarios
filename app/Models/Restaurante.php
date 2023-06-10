@@ -60,4 +60,9 @@ class Restaurante extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    public function pratos()
+    {
+        return $this->hasMany(Prato::class, 'restaurante_id', 'id');
+    }
 }

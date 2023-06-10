@@ -47,4 +47,12 @@ class Prato extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    protected $with = ['restaurante'];
+
+    public function restaurante()
+    {
+        return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
+    }
+
 }

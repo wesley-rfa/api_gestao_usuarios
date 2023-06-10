@@ -46,4 +46,16 @@ class Pedido extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    protected $with = ['itens', 'cliente'];
+
+    public function itens()
+    {
+        return $this->hasMany(PedidoItem::class, 'pedido_id', 'id');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(User::class, 'cliente_id', 'id');
+    }
 }
