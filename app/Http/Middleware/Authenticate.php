@@ -18,4 +18,16 @@ class Authenticate extends Middleware
             return route('login');
         }
     }
+
+     /**
+     * Unauthorized user error return
+     *
+     * @param [type] $request
+     * @param array $guards
+     * @return void
+     */
+    protected function unauthenticated($request, array $guards)
+    {
+        abort(responseError($request, ['errorCode' => 1, 'errorMessage' => 'Unauthorized user', 'statusCode' => 401]));
+    }
 }
