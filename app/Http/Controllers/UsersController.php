@@ -21,13 +21,13 @@ class UsersController extends Controller
     {
         $newUser = $request->validated();
         $newUser['password'] = bcrypt($newUser['password']);
-        return User::create($newUser);
+        return responseEnveloper('Users', User::create($newUser), [], true, null, null);
     }
 
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::findOrfail($id);
         $user->update($request->validated());
-        return $user;
+        return responseEnveloper('Users', $user, [], true, null, null);
     }
 }
