@@ -95,10 +95,10 @@ if (!function_exists("responseEnveloper")) {
                     $meta->apiVersion = env("API_VERSION");
                     $meta->additionalInformation = $additionalInformation;
 
-                    $response->data  = $data;
+                    $response->data  = dataToCamelCase($data);
                     $response->meta  = $meta;
                 } else {
-                    $response->data = $data;
+                    $response->data = dataToCamelCase($data);
                     $meta->apiVersion = env("API_VERSION");
                     $meta->additionalInformation = $additionalInformation;
 
@@ -118,7 +118,46 @@ if (!function_exists("responseEnveloper")) {
             $response->data = $error;
             $response->meta = $meta;
         }
-
         return json_encode($response);
+    }
+}
+
+if (!function_exists("dataToCamelCase")) {
+    function dataToCamelCase($array)
+    {
+        $array = $array->toArray();
+        foreach ($array as $dataKey => $data) {
+            if (is_numeric($dataKey)) {
+                foreach ($data as $field => $dataValue) {
+                    if (is_numeric($field)) {
+                        foreach ($dataValue as $field2 => $dataValue2) {
+                            $array[$dataKey][snakeCaseToCamelCase($field2)] = $dataValue2;
+                            if ($field2 !== snakeCaseToCamelCase($field2)) unset($array[$dataKey][$field2]);
+                        }
+                    } else {
+                        $array[$dataKey][snakeCaseToCamelCase($field)] = $dataValue;
+                        if ($field !== snakeCaseToCamelCase($field)) unset($array[$dataKey][$field]);
+                    }
+                }
+            } else {
+                $array[snakeCaseToCamelCase($dataKey)] = $data;
+                if ($dataKey !== snakeCaseToCamelCase($dataKey)) unset($array[$dataKey]);
+            }
+        }
+        return $array;
+    }
+}
+
+if (!function_exists("snackCaseToCamelCase")) {
+    function snakeCaseToCamelCase($string, $noStrip = [])
+    {
+        $string = preg_replace('/[^a-z0-9' . implode("", $noStrip) . ']+/i', ' ', $string);
+        $string = trim($string);
+
+        $string = ucwords($string);
+        $string = str_replace(" ", "", $string);
+        $string = lcfirst($string);
+
+        return $string;
     }
 }

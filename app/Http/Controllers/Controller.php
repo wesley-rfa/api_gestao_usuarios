@@ -33,7 +33,7 @@ class Controller extends BaseController
         $order = $request->query('order');
         try {
             $result = $this->repository->getAll($filter, $pagination, $order);
-            return $result;
+            return responseEnveloper($this->class, $result, [], true, null, null);
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(
                 $this->class . ' - Not Found error on index',
@@ -62,7 +62,8 @@ class Controller extends BaseController
     public function show(Request $request, $id = null)
     {
         try {
-            return $this->repository->get($id);
+            $result = $this->repository->get($id);
+            return responseEnveloper($this->class, $result, [], true, null, null);
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(
                 $this->class . ' - Not Found error on show',
@@ -125,6 +126,6 @@ class Controller extends BaseController
             $error['exceptionMesage'] = $e->getMessage();
         }
 
-        return $object;
+        return responseEnveloper($this->class, $object, [], true);
     }
 }
