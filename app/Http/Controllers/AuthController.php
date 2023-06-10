@@ -26,6 +26,8 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
+        auth()->factory()->setTTL(24 * 60 * 7);
+
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -35,7 +37,7 @@ class AuthController extends Controller
             'token' => $token,
             'sessionId' => null,
             'expiration' => [
-                'expires_in' => auth()->factory()->getTTL() * 60
+                'expires_in' => auth()->factory()->getTTL() / 60
             ],
         ];
 

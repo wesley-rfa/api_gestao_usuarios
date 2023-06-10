@@ -46,4 +46,16 @@ class PedidoItem extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    protected $with = ['prato'];
+
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class, 'pedido_id', 'id');
+    }
+
+    public function prato()
+    {
+        return $this->belongsTo(Prato::class, 'prato_id', 'id');
+    }
 }

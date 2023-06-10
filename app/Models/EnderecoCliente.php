@@ -52,4 +52,9 @@ class EnderecoCliente extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    public function cliente()
+    {
+        return $this->belongsTo(User::class, 'cliente_id', 'id');
+    }
 }
