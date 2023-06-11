@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Restaurante;
 use Illuminate\Http\Request;
 use App\Repositories\RestauranteRepository;
+use App\Http\Requests\StoreRestaurantRequest; 
+use App\Http\Requests\UpdateRestaurantRequest;
 
 class RestauranteController extends Controller
 {
@@ -22,9 +24,10 @@ class RestauranteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(StoreRestaurantRequest $request) 
+    { 
+        $newRestaurant = $request->validated(); 
+        return responseEnveloper('Restaurantes', Restaurante::create($newRestaurant ), [], true, null, null); 
     }
 
     /**
@@ -34,8 +37,9 @@ class RestauranteController extends Controller
      * @param  \App\Models\Restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Restaurante $restaurante)
-    {
-        //
+    public function update(UpdateRestaurantRequest $request, $id) 
+    { 
+        $restaurant = Restaurante::findOrfail($id); $restaurant->update($request->validated()); 
+        return responseEnveloper('Restaurantes', $restaurant, [], true, null, null); 
     }
 }
