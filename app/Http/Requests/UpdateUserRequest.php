@@ -26,6 +26,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'string',
             'email' => 'email',
+            'email' => 'string',
         ];
     }
 }
