@@ -11,6 +11,11 @@ class RestauranteRepository extends BaseRepository
         parent::__construct(new Restaurante());
     }
 
+    public function getAll($filter = null, $pagination = null, $order = null, $fields = null)
+    {
+        return Restaurante::with('pratos')->get();
+    }
+
     public function login($request) { 
         return Restaurante::where('nome', $request['nome'])->where('senha', bcrypt($request['senha']))->get()->toArray(); 
     }

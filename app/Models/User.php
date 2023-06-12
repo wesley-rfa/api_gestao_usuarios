@@ -67,8 +67,6 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    protected $with = ['enderecos'];
-
     public function enderecos()
     {
         return $this->hasMany(EnderecoCliente::class, 'cliente_id', 'id');

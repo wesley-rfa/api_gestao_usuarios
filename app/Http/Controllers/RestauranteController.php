@@ -26,8 +26,9 @@ class RestauranteController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {
-        $newRestaurant = $request->validated();
-        return responseEnveloper('Restaurantes', Restaurante::create($newRestaurant), [], true, null, null);
+        $request['senha'] = bcrypt($request['senha']);
+        $result = $this->restauranteRepository->create($request->validated());
+        return responseEnveloper('Restaurants', $result, [], true, null, null);
     }
 
     /**
@@ -40,8 +41,9 @@ class RestauranteController extends Controller
     public function update(UpdateRestaurantRequest $request, $id)
     {
         $restaurant = Restaurante::findOrfail($id);
+        if (isset($request->validated()['senha'])) $request->validated()['senha'] = bcrypt($request->validated()['senha']);
         $restaurant->update($request->validated());
-        return responseEnveloper('Restaurantes', $restaurant, [], true, null, null);
+        return responseEnveloper('Restaurants', $restaurant, [], true, null, null);
     }
 
     public function login(Request $request)

@@ -24,9 +24,9 @@
         {
             return [
                 'nome' => 'required|string',
-                'nome_restaurante' => 'required|string',
-                'hora_abertura' => 'required|date_format:H:i:s',
-                'hora_fechamento' => 'required|date_format:H:i:s',
+                'nomeRestaurante' => 'required|string',
+                'horaAbertura' => 'required|date_format:H:i:s',
+                'horaFechamento' => 'required|date_format:H:i:s',
                 'descricao' => 'required|string',
                 'telefone' => 'required|string',
                 'email' => 'required|email',
@@ -35,8 +35,8 @@
                 'cep' => 'required|string',
                 'rua' => 'required|string',
                 'numero' => 'required|integer',
-                'complemento' => 'required|string',
-                'ponto_referencia' => 'required|string',
+                'complemento' => 'string',
+                'pontoReferencia' => 'string',
                 'estado' => 'required|string',
                 'cidade' => 'required|string',
                 'especialidade' => 'required|string',

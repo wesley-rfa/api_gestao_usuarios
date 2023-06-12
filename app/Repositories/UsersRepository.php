@@ -11,4 +11,9 @@ class UsersRepository extends BaseRepository
     {
         parent::__construct(new User());
     }
+
+    public function getAll($filter = null, $pagination = null, $order = null, $fields = null)
+    {
+        return User::with('enderecos')->get();
+    }
 }

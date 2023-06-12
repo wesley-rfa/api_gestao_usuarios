@@ -135,6 +135,19 @@ if (!function_exists("dataToCamelCase")) {
                             if ($field2 !== snakeCaseToCamelCase($field2)) unset($array[$dataKey][$field2]);
                         }
                     } else {
+                        if (is_array($dataValue)) {
+                            foreach ($dataValue as $field2 => $dataValue2) {
+                                if (is_numeric($field2)) {
+                                    foreach ($dataValue2 as $field3 => $dataValue3) {
+                                        $dataValue[$field2][snakeCaseToCamelCase($field3)] = $dataValue3;
+                                        if ($field3 !== snakeCaseToCamelCase($field3)) unset($dataValue[$field2][$field3]);
+                                    }
+                                } else {
+                                    $dataValue[snakeCaseToCamelCase($field2)] = $dataValue2;
+                                    if ($field2 !== snakeCaseToCamelCase($field2)) unset($dataValue[$field2]);
+                                }
+                            }
+                        }
                         $array[$dataKey][snakeCaseToCamelCase($field)] = $dataValue;
                         if ($field !== snakeCaseToCamelCase($field)) unset($array[$dataKey][$field]);
                     }
