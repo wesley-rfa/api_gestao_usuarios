@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 use App\Repositories\PedidoRepository;
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 
 class PedidoController extends Controller
 {
@@ -24,7 +26,8 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $result = $this->pedidoRepository->create($request->validated());
+        return responseEnveloper('Orders', $result, [], true, null, null);
     }
 
     /**
@@ -36,6 +39,7 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-        //
+        $result = $this->pedidoRepository->update($request->validated(), $id);
+        return responseEnveloper('Orders', $result, [], true, null, null);
     }
 }
