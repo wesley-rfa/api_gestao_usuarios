@@ -5,6 +5,7 @@ use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PratoController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EnderecoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,5 @@ Route::middleware(['auth:api', 'forceAcceptJson'])->group(function () {
     Route::post('restaurantes/login', [RestauranteController::class, 'login']);
     Route::apiResource('pedidos', PedidoController::class);
     Route::apiResource('pratos', PratoController::class);
+    Route::apiResource('enderecos', EnderecoController::class);
 });

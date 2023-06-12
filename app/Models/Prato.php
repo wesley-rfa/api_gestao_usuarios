@@ -48,8 +48,6 @@ class Prato extends Model
         'deleted_at' => 'datetime',
     ];
 
-    protected $with = ['restaurante'];
-
     public function restaurante()
     {
         return $this->belongsTo(Restaurante::class, 'restaurante_id', 'id');
