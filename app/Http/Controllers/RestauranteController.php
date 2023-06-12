@@ -42,4 +42,12 @@ class RestauranteController extends Controller
         $restaurant = Restaurante::findOrfail($id); $restaurant->update($request->validated()); 
         return responseEnveloper('Restaurantes', $restaurant, [], true, null, null); 
     }
+
+    public function login(Request $request) { 
+        $result = $this->restauranteRepository->login($request); 
+        if (empty($result)) { 
+            return responseEnveloper('Restaurant', $result, [], false, null, null); 
+        } 
+        return responseEnveloper('Restaurant', $result, [], true, null, null); 
+    }
 }

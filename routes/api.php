@@ -28,6 +28,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware(['auth:api', 'forceAcceptJson'])->group(function () {
     Route::apiResource('clientes', UsersController::class);
     Route::apiResource('restaurantes', RestauranteController::class);
+    Route::post('restaurantes/login', [RestauranteController::class, 'login']);
     Route::apiResource('pedidos', PedidoController::class);
     Route::apiResource('pratos', PratoController::class);
 });

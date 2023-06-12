@@ -10,4 +10,8 @@ class RestauranteRepository extends BaseRepository
     {
         parent::__construct(new Restaurante());
     }
+
+    public function login($request) { 
+        return Restaurante::where('nome', $request['nome'])->where('senha', bcrypt($request['senha']))->get()->toArray(); 
+    }
 }
