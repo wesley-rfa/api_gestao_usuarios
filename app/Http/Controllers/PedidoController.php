@@ -24,7 +24,7 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOrderRequest $request)
     {
         $result = $this->pedidoRepository->create($request->validated());
         return responseEnveloper('Orders', $result, [], true, null, null);
@@ -37,7 +37,7 @@ class PedidoController extends Controller
      * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pedido $pedido)
+    public function update(UpdateOrderRequest $request, $id)
     {
         $result = $this->pedidoRepository->update($request->validated(), $id);
         return responseEnveloper('Orders', $result, [], true, null, null);

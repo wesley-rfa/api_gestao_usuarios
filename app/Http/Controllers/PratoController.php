@@ -9,7 +9,7 @@ use App\Repositories\PratoRepository;
 class PratoController extends Controller
 {
     private $pratoRepository;
-    
+
     public function __construct()
     {
         $this->pratoRepository = new PratoRepository();

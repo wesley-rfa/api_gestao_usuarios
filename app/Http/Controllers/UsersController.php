@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UsersRepository;
+
 class UsersController extends Controller
 {
     private $usersRepository;
-    
+
     public function __construct()
     {
         $this->usersRepository = new UsersRepository();
