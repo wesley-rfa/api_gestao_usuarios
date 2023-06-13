@@ -16,7 +16,7 @@ class RestauranteRepository extends BaseRepository
         return Restaurante::with('pratos')->get();
     }
 
-    public function login($request) { 
-        return Restaurante::where('nome', $request['nome'])->where('senha', bcrypt($request['senha']))->get()->toArray(); 
+    public function login($request) {
+        return Restaurante::where('nome', $request['nome'])->where('senha', $request['senha'])->first(); 
     }
 }

@@ -26,7 +26,6 @@ class RestauranteController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {
-        $request['senha'] = bcrypt($request['senha']);
         $result = $this->restauranteRepository->create($request->validated());
         return responseEnveloper('Restaurants', $result, [], true, null, null);
     }
