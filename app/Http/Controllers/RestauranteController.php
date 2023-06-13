@@ -30,6 +30,36 @@ class RestauranteController extends Controller
         return responseEnveloper('Restaurants', $result, [], true, null, null);
     }
 
+    public function show(Request $request, $id = null)
+    {
+        try {
+            $result = $this->restauranteRepository->getPorIdComPratos($id);
+            return responseEnveloper('Restaurants', $result, [], true, null, null);
+        } catch (ModelNotFoundException $e) {
+            Log::channel('controllers')->warning(
+                $this->class . ' - Not Found error on show',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMesage'] = $e->getMessage();
+        } catch (Exception $e) {
+            Log::channel('controllers')->warning(
+                $this->class . ' - Undefined error on show',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMesage'] = $e->getMessage();
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
