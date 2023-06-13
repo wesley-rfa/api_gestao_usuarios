@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PratoController;
@@ -27,7 +27,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware(['auth:api', 'forceAcceptJson'])->group(function () {
-    Route::apiResource('clientes', UsersController::class);
+    Route::apiResource('clientes', ClienteController::class);
+    Route::post('clientes/login', [ClienteController::class, 'login']);
     Route::apiResource('restaurantes', RestauranteController::class);
     Route::post('restaurantes/login', [RestauranteController::class, 'login']);
     Route::apiResource('pedidos', PedidoController::class);

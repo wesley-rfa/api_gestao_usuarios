@@ -13,6 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('clientes')) {
+            Schema::create('clientes', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->string('password');
+                $table->string('telefone', 11);
+                $table->timestamps();
+                $table->softDeletes($column = 'deleted_at');
+            });
+        }
+        
+
         if (!Schema::hasTable('restaurantes')) {
             Schema::create('restaurantes', function (Blueprint $table) {
                 $table->id();
@@ -78,7 +91,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes($column = 'deleted_at');
 
-                $table->foreign('cliente_id')->references('id')->on('users');
+                $table->foreign('cliente_id')->references('id')->on('clientes');
             });
         }
 
@@ -91,7 +104,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes($column = 'deleted_at');
 
-                $table->foreign('cliente_id')->references('id')->on('users');
+                $table->foreign('cliente_id')->references('id')->on('clientes');
                 $table->foreign('endereco_cliente_id')->references('id')->on('enderecoClientes');
             });
         }
@@ -133,11 +146,11 @@ return new class extends Migration
      */
     public function down()
     {
-        //$table->dropForeign(['user_id']);
         Schema::dropIfExists('pedidoItens');
         Schema::dropIfExists('pratos');
         Schema::dropIfExists('pedidos');
         Schema::dropIfExists('enderecoClientes');
         Schema::dropIfExists('restaurantes');
+        Schema::dropIfExists('clientes');
     }
 };
