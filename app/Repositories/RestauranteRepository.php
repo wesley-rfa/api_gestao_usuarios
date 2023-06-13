@@ -16,6 +16,11 @@ class RestauranteRepository extends BaseRepository
         return Restaurante::with('pratos')->get();
     }
 
+    public function getPorIdComPratos($id)
+    {
+        return Restaurante::where('id', $id)->with('pratos')->get();
+    }
+
     public function login($request) {
         return Restaurante::where('nome', $request['nome'])->where('senha', $request['senha'])->first(); 
     }
