@@ -19,6 +19,36 @@ class ClienteController extends Controller
         parent::__construct($this->clienteRepository, Cliente::class);
     }
 
+    public function show(Request $request, $id = null)
+    {
+        try {
+            $result = $this->clienteRepository->getPorIdComEndereco($id);
+            return responseEnveloper('Clients', $result, [], true, null, null);
+        } catch (ModelNotFoundException $e) {
+            Log::channel('controllers')->warning(
+                $this->class . ' - Not Found error on show',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMesage'] = $e->getMessage();
+        } catch (Exception $e) {
+            Log::channel('controllers')->warning(
+                $this->class . ' - Undefined error on show',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMesage'] = $e->getMessage();
+        }
+    }
+
     public function store(StoreUserRequest $request)
     {
         $newClient = $request->validated();
