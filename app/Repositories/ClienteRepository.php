@@ -12,6 +12,11 @@ class ClienteRepository extends BaseRepository
         parent::__construct(new Cliente());
     }
 
+    public function getPorIdComEndereco($id)
+    {
+        return Cliente::where('id', $id)->with('enderecos')->get();
+    }
+
     public function getAll($filter = null, $pagination = null, $order = null, $fields = null)
     {
         return Cliente::with('enderecos')->get();
